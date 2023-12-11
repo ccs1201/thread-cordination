@@ -1,4 +1,4 @@
-package exercices.minandmax.test;
+package test;
 
 import java.util.ArrayList;
 import java.util.List;
