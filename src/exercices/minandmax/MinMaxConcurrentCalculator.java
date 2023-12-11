@@ -33,7 +33,7 @@ public class MinMaxConcurrentCalculator {
         List<Thread> threads = new ArrayList<>(parallelism);
 
         splitedNumbersList.forEach(longs -> {
-            Thread t = new Thread(() -> {
+            Thread t = createThread(() -> {
                 long min = findMin(longs);
                 try {
                     Thread.sleep(SLEEP_TIME);
@@ -84,7 +84,7 @@ public class MinMaxConcurrentCalculator {
         List<Thread> threads = new ArrayList<>(parallelism);
 
         splitedNumbersList.forEach(longs -> {
-            Thread t = new Thread(() -> {
+            Thread t = createThread(() -> {
                 long max = findMax(longs);
                 try {
                     Thread.sleep(SLEEP_TIME);
@@ -131,5 +131,9 @@ public class MinMaxConcurrentCalculator {
                 .range(0, (numbers.size() + size - 1) / size)
                 .mapToObj(i -> numbers.subList(i * size, Math.min((i + 1) * size, numbers.size())))
                 .collect(Collectors.toList());
+    }
+
+    private Thread createThread(Runnable task) {
+        return Thread.ofVirtual().unstarted(task);
     }
 }

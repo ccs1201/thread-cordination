@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class MainMinMax {
 
-    private static final int PARALLELISM = 8;
+    private static final int PARALLELISM = Runtime.getRuntime().availableProcessors();
     private static final int SIZE = 100_000_000;
 
     public static void main(String[] args) {
