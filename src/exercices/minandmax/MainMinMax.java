@@ -17,9 +17,9 @@ public class MainMinMax {
         long start = System.currentTimeMillis();
         var calculator = MinMaxConcurrentCalculator.fromLongs(numbers);
 
-        Thread threadGetMin = new Thread(() -> System.out.println("Teste Min -> "
+        Thread threadGetMin = Thread.ofVirtual().unstarted(() -> System.out.println("Teste Min -> "
                 .concat(calculator.getMin(PARALLELISM).toString())));
-        Thread threadGetMax = new Thread(() -> System.out.println("Teste Max -> "
+        Thread threadGetMax = Thread.ofVirtual().unstarted(() -> System.out.println("Teste Max -> "
                 .concat(calculator.getMax(PARALLELISM).toString())));
 
         threadGetMax.start();
