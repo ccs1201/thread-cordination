@@ -14,8 +14,7 @@ public class MinMaxConcurrentCalculator {
     private final List<Long> numbers;
     private final AtomicLong minValue = new AtomicLong(Long.MAX_VALUE);
     private final AtomicLong maxValue = new AtomicLong(Long.MIN_VALUE);
-    private final AtomicInteger callGetMinCount = new AtomicInteger(0);
-    private final AtomicInteger callGetMaxCount = new AtomicInteger(0);
+    private final AtomicInteger callCount = new AtomicInteger(0);
     private List<List<Long>> splitedNumbersList = Collections.emptyList();
 
     public MinMaxConcurrentCalculator(List<Long> numbersLong) {
@@ -48,7 +47,7 @@ public class MinMaxConcurrentCalculator {
         });
 
         threads.forEach(t -> {
-            t.setName("findMin-" + callGetMinCount.incrementAndGet());
+            t.setName("findMin-" + callCount.incrementAndGet());
             t.start();
             try {
                 t.join();
@@ -99,7 +98,7 @@ public class MinMaxConcurrentCalculator {
         });
 
         threads.forEach(t -> {
-            t.setName("findMax-" + callGetMaxCount.incrementAndGet());
+            t.setName("findMax-" + callCount.incrementAndGet());
             t.start();
             try {
                 t.join();
